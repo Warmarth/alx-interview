@@ -6,7 +6,7 @@ def minOperations(n):
     n = number of times a character will be pasted{iterate}
 
     """
-     md = 1
+    md = 1
     copyall = 0
     paste = 0
     while md < n:
