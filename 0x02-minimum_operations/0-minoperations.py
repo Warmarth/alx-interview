@@ -1,21 +1,29 @@
 #!/usr/bin/python3
 
-def minOperations(n):
-    """model performes only two functions copy all and paste
-    H = single character
-    n = number of times a character will be pasted{iterate}
+"""
+    Method that determines the number of minmum operations given n characters
+"""
 
+
+def minOperations(n):
     """
-    md = 1
-    copyall = 0
-    paste = 0
-    while md < n:
-        remainder = n - md
-        if (remainder % md == 0):
-            copyall = md
-            md += copyall
-            paste += 2
+        A function that calculates the fewest number of operations
+        needed to give a result of exactly n H characters in a file
+        args: n: Number of characters to be displayed
+        return:
+               number of min operations
+    """
+
+    now = 1
+    start = 0
+    counter = 0
+    while now < n:
+        remainder = n - now
+        if (remainder % now == 0):
+            start = now
+            now += start
+            counter += 2
         else:
-            md += copyall
-            paste += 1
-    return paste
+            now += start
+            counter += 1
+    return counter
