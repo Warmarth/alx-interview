@@ -15,15 +15,18 @@ def minOperations(n):
     """
 
     now = 1
-    start = 0
-    counter = 0
-    while now < n:
+    copy = 0
+    paste = 0
+    for i in range(n):
+        if now >= n:
+            break
         remainder = n - now
-        if (remainder % now == 0):
-            start = now
-            now += start
-            counter += 2
+        if remainder % now == 0:
+            copy = now
+            now += copy
+            paste += 2
         else:
-            now += start
-            counter += 1
-    return counter
+            now += copy
+            paste += 1
+    return paste
+
