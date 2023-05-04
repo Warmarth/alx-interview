@@ -14,19 +14,19 @@ def minOperations(n):
                number of min operations
     """
 
+def minOperations(n):
     now = 1
-    copy = 0
-    paste = 0
+    start = 0
+    counter = 0
     for i in range(n):
         if now >= n:
             break
         remainder = n - now
         if remainder % now == 0:
-            copy = now
-            now += copy
-            paste += 2
+            start = now
+            now += start
+            counter += 2
         else:
-            now += copy
-            paste += 1
-    return paste
-
+            now += start
+            counter += 1
+    return counter
