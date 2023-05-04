@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 def minOperations(n):
     """model performes only two functions copy all and paste
     H = single character
