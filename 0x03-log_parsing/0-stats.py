@@ -38,8 +38,3 @@ for line_number, line in enumerate(sys.stdin, 1):
         for key, value in sorted(cache.items()):
             if value != 0:
                 print('{}: {}'.format(key, value))
-else:
- print('File size: {}'.format(total_size))
- for key, value in sorted(cache.items()):
-    if value != 0:
-       print('{}: {}'.format(key, value))
