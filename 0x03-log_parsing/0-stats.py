@@ -1,40 +1,54 @@
 #!/usr/bin/python3
-'''a script that reads stdin line by line and computes metrics'''
-
 
 import sys
 
-cache = {'200': 0, '301': 0, '400': 0, '401': 0,
-         '403': 0, '404': 0, '405': 0, '500': 0}
-total_size = 0
+
+def print_msg(dict_sc, total_file_size):
+    """
+    Method to print
+    Args:
+        dict_sc: dict of status codes
+        total_file_size: total of the file
+    Returns:
+        Nothing
+    """
+
+    print("File size: {}".format(total_file_size))
+    for key, val in sorted(dict_sc.items()):
+        if val != 0:
+            print("{}: {}".format(key, val))
+
+
+total_file_size = 0
+code = 0
 counter = 0
+dict_sc = {"200": 0,
+           "301": 0,
+           "400": 0,
+           "401": 0,
+           "403": 0,
+           "404": 0,
+           "405": 0,
+           "500": 0}
 
-for line_number, line in enumerate(sys.stdin, 1):
-    # Split the line into its components
-    parts = line.split()
-    if len(parts) != 10:
-        # If the line format is invalid, skip it
-        continue
+try:
+    for line in sys.stdin:
+        parsed_line = line.split()  # trimming
+        parsed_line = parsed_line[::-1]  # inverting
 
-    ip_address, _, _, date, _, method, path, _, code, size = parts
+        if len(parsed_line) > 2:
+            counter += 1
 
-    try:
-        code = str(code)
-        size = int(size)
-    except ValueError:
-        # If the status code or file size is not an integer, skip the line
-        continue
+            if counter <= 10:
+                total_file_size += int(parsed_line[0])  # file size
+                code = parsed_line[1]  # status code
 
-    # Update metrics
-    if code in cache.keys():
-        cache[code] += 1
-    total_size += size
+                if (code in dict_sc.keys()):
+                    dict_sc[code] += 1
 
-    # Print metrics every 10 lines
-    counter += 1
-    if counter == 10:
-        counter = 0
-        print('File size: {}'.format(total_size))
-        for key, value in sorted(cache.items()):
-            if value != 0:
-                print('{}: {}'.format(key, value))
+            if (counter == 10):
+                print_msg(dict_sc, total_file_size)
+                counter = 0
+
+finally:
+    print_msg(dict_sc, total_file_size)
