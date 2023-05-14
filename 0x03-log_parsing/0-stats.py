@@ -20,7 +20,7 @@ try:
             total_size += size
             counter += 1
 
-        if counter == 10:
+        elif counter == 10:
             counter = 0
             print('File size: {}'.format(total_size))
             for key, value in sorted(cache.items()):
