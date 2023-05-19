@@ -2,8 +2,6 @@
 """
 Determines if a given data set represents a valid UTF-8 encoding.
 """
-
-
 def validUTF8(data):
     """
     Return: True if data is a valid UTF-8 encoding, else return False.
@@ -12,10 +10,16 @@ def validUTF8(data):
     for num in data:
         binary_rep = format(num, '#010b')[-8:]
         if num_bytes == 0:
-            mask = 1 << 7
-            while( num & mask) != 0:
-                num_bytes +=1
-                mask >>= 1
+            for num in binary_rep:
+                if num == '0':
+                    break
+                num_bytes += 1
+
+        # if num_bytes == 0:
+        #     mask = 1 << 7
+        #     while( num & mask) != 0:
+        #         num_bytes +=1
+        #         mask >>= 1
 
             if num_bytes == 0:
                 continue
