@@ -1,35 +1,39 @@
 #!/usr/bin/python3
-"""
-Determines if a given data set represents a valid UTF-8 encoding.
-"""
+"""UTF-8 Validation"""
+
+
 def validUTF8(data):
+    """Determines if a given data set
+    represents a valid utf-8 encoding
     """
-    Return: True if data is a valid UTF-8 encoding, else return False.
-    """
+    # Number of bytes in the current UTF-8 character
     num_bytes = 0
-    for num in data:
-        binary_rep = format(num, '#010b')[-8:]
+
+    for byte in data:
+        # Check if the current byte is the start of a new UTF-8 character
         if num_bytes == 0:
-            for num in binary_rep:
-                if num == '0':
-                    break
-                num_bytes += 1
-
-        # if num_bytes == 0:
-        #     mask = 1 << 7
-        #     while( num & mask) != 0:
-        #         num_bytes +=1
-        #         mask >>= 1
-
-            if num_bytes == 0:
-                continue
-
-            elif num_bytes == 1 or num_bytes > 4:
+            # Determine the number of bytes based on the most significant bits
+            if byte >> 7 == 0b0:
+                num_bytes = 1
+            elif byte >> 5 == 0b110:
+                num_bytes = 2
+            elif byte >> 4 == 0b1110:
+                num_bytes = 3
+            elif byte >> 3 == 0b11110:
+                num_bytes = 4
+            else:
                 return False
         else:
-            if not (binary_rep[0] == '1' and binary_rep[1] == '0'):
+            # Check if the current byte follows the format 10xxxxxx
+            if byte >> 6 != 0b10:
                 return False
 
+        # Decrement the number of expected bytes
         num_bytes -= 1
 
+        # If there are negative bytes or incomplete UTF-8 character
+        if num_bytes < 0:
+            return False
+
+    # If there are remaining bytes or incomplete UTF-8 character
     return num_bytes == 0
