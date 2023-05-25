@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """Solves the N-queens puzzle.
 Determines all possible solutions to placing N
 N non-attacking queens on an NxN chessboard.
@@ -79,11 +80,6 @@ def xout(board, row, col):
 
 def recursive_solve(board, row, queens, solutions):
     """Recursively solve an N-queens puzzle.
-    Args:
-        board (list): The current working chessboard.
-        row (int): The current working row.
-        queens (int): The current number of placed queens.
-        solutions (list): A list of lists of solutions.
     Returns:
         solutions
     """
@@ -115,3 +111,4 @@ if __name__ == "__main__":
     solutions = recursive_solve(board, 0, 0, [])
     for solved in solutions:
         print(solved)
+        print("\n")
