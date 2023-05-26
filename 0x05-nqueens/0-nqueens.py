@@ -15,7 +15,6 @@ def board_deepcopy(board):
     """Return a deepcopy of a chessboard."""
     return copy.deepcopy(board)
 
-
 def get_solution(board):
     """Return the list of lists representation of a solved chessboard."""
     solution = []
@@ -75,8 +74,6 @@ def xout(board, row, col):
         board[r][c] = "x"
         r += 1
         c -= 1
-
-
 
 def recursive_solve(board, row, queens, solutions):
     """Recursively solve an N-queens puzzle.
